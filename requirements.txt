@@ -1,0 +1,6 @@
+azure-graphrbac
+Flask
+oauthlib
+python-jose
+flask_oauthlib
+pyyaml
