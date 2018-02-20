@@ -40,7 +40,6 @@ def me():
     me = microsoft.get('me')
     data={'$select':config['user_attributes'], '$expand':'extensions'}
     user_identity = microsoft.get('me', data=data)
-    print('I am in me')
 
     return render_template('auth/me.html', me=str(me.data), user_identity=user_identity.data)
 
