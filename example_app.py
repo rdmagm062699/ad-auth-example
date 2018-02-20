@@ -17,9 +17,6 @@ app.secret_key = 'development'
 microsoft = microsoft_client(config, app)
 
 @app.route('/')
-def index():
-    return render_template('hello.html')
-
 @app.route('/login', methods = ['POST', 'GET'])
 def login():
     if 'microsoft_token' in session:
@@ -47,7 +44,6 @@ def authorized():
 
 @app.route('/me')
 def me():
-    token = session['microsoft_token'][0]
     me = microsoft.get('me')
     data={'$select':config['user_attributes'], '$expand':'extensions'}
     user_identity = microsoft.get('me', data=data)
@@ -79,8 +75,5 @@ def _verify_state(session, request):
         raise Exception('State has been tampered with, end authentication')
 
 def _store_results(session, response):
-    print("Response: " + str(response))
-    # Okay to store this in a local variable, encrypt if it's going to client
-    # machine or database. Treat as a password.
     access_token = response['access_token']
     session['microsoft_token'] = (access_token, '')
