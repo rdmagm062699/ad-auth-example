@@ -1,37 +1,29 @@
-from flask import Flask, redirect, url_for, session, request, render_template
+from flask import Blueprint, redirect, url_for, session, request, render_template
 from jose import jws
 import json, requests, uuid, yaml
-from security.microsoft_client import microsoft_client
-from security.user_operations import get_user
+from app.mod_auth.security.microsoft_client import microsoft_client
+from app.mod_auth.security.user_operations import get_user
+from app import app, config
 
-with open("config/config.yml", 'r') as ymlfile:
-    config = yaml.load(ymlfile)
+mod_auth = Blueprint('auth', __name__)
+microsoft = microsoft_client(config, mod_auth)
 
-app = Flask(__name__)
-app.debug = True
-app.secret_key = 'development'
-
-# This sample loads the keys on boot, but for production
-# the keys should be refreshed either periodically or on
-# jws.verify fail to be able to handle a key rollover
-microsoft = microsoft_client(config, app)
-
-@app.route('/')
-@app.route('/login', methods = ['POST', 'GET'])
+@mod_auth.route('/')
+@mod_auth.route('/login', methods = ['POST', 'GET'])
 def login():
     if 'microsoft_token' in session:
-        return redirect(url_for('me'))
+        return redirect(url_for('auth.me'))
 
     return _authenticate(session, microsoft)
 
-@app.route('/logout', methods = ['POST', 'GET'])
+@mod_auth.route('/logout', methods = ['POST', 'GET'])
 def logout():
     session.pop('microsoft_token', None)
     session.pop('claims', None)
     session.pop('state', None)
-    return redirect(url_for('index'))
+    return redirect(url_for('auth.login'))
 
-@app.route('/login/authorized')
+@mod_auth.route('/login/authorized')
 def authorized():
     _verify_state(session, request)
     response = microsoft.authorized_response()
@@ -40,15 +32,17 @@ def authorized():
         return _access_denied_message(response)
 
     _store_results(session, response)
-    return redirect(url_for('me'))
+    print(url_for('auth.me'))
+    return redirect(url_for('auth.me'))
 
-@app.route('/me')
+@mod_auth.route('/me')
 def me():
     me = microsoft.get('me')
     data={'$select':config['user_attributes'], '$expand':'extensions'}
     user_identity = microsoft.get('me', data=data)
+    print('I am in me')
 
-    return render_template('me.html', me=str(me.data), user_identity=user_identity.data)
+    return render_template('auth/me.html', me=str(me.data), user_identity=user_identity.data)
 
 # If library is having trouble with refresh, uncomment below and implement refresh handler
 # see https://github.com/lepture/flask-oauthlib/issues/160 for instructions on how to do this
@@ -60,12 +54,9 @@ def me():
 def get_microsoft_oauth_token():
     return session.get('microsoft_token')
 
-if __name__ == '__main__':
-    app.run()
-
 def _authenticate(session, microsoft_client):
     session['state'] = uuid.uuid4()
-    return microsoft_client.authorize(callback=url_for('authorized', _external=True), state=session['state'])
+    return microsoft_client.authorize(callback=url_for('auth.authorized', _external=True), state=session['state'])
 
 def _access_denied_message(request):
     return "Access Denied: Reason=%s\nError=%s" % (response.get('error'), request.get('error_description'))

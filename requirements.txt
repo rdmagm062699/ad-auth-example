@@ -1,5 +1,6 @@
 azure-graphrbac
 Flask
+flask-wtf
 oauthlib
 python-jose
 flask_oauthlib
