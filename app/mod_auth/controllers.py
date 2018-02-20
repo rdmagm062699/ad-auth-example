@@ -1,5 +1,4 @@
 from flask import Blueprint, redirect, url_for, session, request, render_template
-from jose import jws
 import json, requests, uuid, yaml
 from app.mod_auth.security.microsoft_client import microsoft_client
 from app.mod_auth.security.user_operations import get_user
