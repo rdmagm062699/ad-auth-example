@@ -32,7 +32,6 @@ def authorized():
         return _access_denied_message(response)
 
     _store_results(session, response)
-    print(url_for('auth.me'))
     return redirect(url_for('auth.me'))
 
 @mod_auth.route('/me')
