@@ -1,6 +1,9 @@
 <html>
   {% include 'header.html' %}
   {% macro display_list(list) -%}
+    {% for item in list %}
+      {{ item }}<br>
+    {% endfor %}
   {%- endmacro %}
   {% macro split_string(person, key, seperator) -%}
     {% if key in person %}
