@@ -1,6 +1,6 @@
 from flask import Blueprint, redirect, url_for, session, request, render_template
 from flask_login import login_required, login_user, login_required, logout_user, current_user
-import json, requests, uuid, yaml
+import uuid
 from app.mod_auth.security.microsoft_client import microsoft_client
 from app.mod_auth.security.user import User
 from app import app, config, login_manager
