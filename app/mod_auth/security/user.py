@@ -17,6 +17,9 @@ class User:
     def data(self):
         return self.__data
 
+    def name(self):
+        return self.__data['displayName']
+
     def franchises(self):
         # Franchise number is currently mangled across multiple definitions
         # you first must understand that we have an archaic local Active Directory
