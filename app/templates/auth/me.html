@@ -1,15 +1,14 @@
 <html>
     <title>Azure AD v2.0 App</title>
     <body >
-        <h1>Successfully Logged In! </h1>
-        <h3><br><br><br>User's Claims<br><br><br><br>{{ me }}</h3><br><br><br>
-        <h3><br><br><br>User's Identity <br><br><br><br>
+        <h1>Successfully Logged In!</h1>
+        <h3>User's Identity</h3><br>
           {% for key, value in user_identity.items() %}
             {% if '@' not in key %}
               {{key}}={{value}}<br>
             {% endif %}
           {% endfor %}
-        </h3><br><br><br>
+        <br><br><br>
          <form action = "/logout" method = "POST">
             <p><input type="submit" value="Logout" style="width:400px"</p>
         </form>

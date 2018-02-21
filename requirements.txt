@@ -1,7 +1,7 @@
-azure-graphrbac
 Flask
 flask-wtf
-oauthlib
-python-jose
 flask_oauthlib
+flask-login
+oauthlib
 pyyaml
+azure-graphrbac
