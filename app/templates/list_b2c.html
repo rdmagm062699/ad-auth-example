@@ -1,135 +1,93 @@
 <html>
-    <head>
-      <link rel="stylesheet" href="/auth_example.css">
-      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='auth_example.css') }}">
-    </head>
-    <title>Caregivers</title>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      </div>
-      <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-          <li><a href="/">Home</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li class="navbar-text">
-            Hello
-          </li>
-          <li>
-            <a href="/logout">Sign out</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div id="header">
-      <div id="header-inner">
-        <h1 id="logo"><a href="/" title="Insight Exporter"></a>
-          <span id="logo-title">CAREGivers</span>
-        </h1>
-        <div id="header-custom"></div>
-      </div>
-    </div>
-    <body >
-        <table>
-          <thead>
-            <th>jobTitle</th>
-            <th>userIdentities</th>
-            <th>givenName</th>
-            <th>surname</th>
-            <th>displayName</th>
-            <th>userPrincipalName</th>
-            <th>signInNames</th>
-            <th>otherMails</th>
-            <th>mailNickname</th>
-            <th>franchises</th>
-            <th>companyName</th>
-            <th>department</th>
-            <th>streetAddress</th>
-            <th>city</th>
-            <th>state</th>
-            <th>country</th>
-            <th>postalCode</th>
-            <th>mobile</th>
-            <th>telephoneNumber</th>
-            <th>facsimileTelephoneNumber</th>
-            <th>employeeId</th>
-            <th>creationType</th>
-            <th>objectType</th>
-            <th>userType</th>
-            <th>showInAddressList</th>
-            <th>preferredLanguage</th>
-            <th>assignedLicenses</th>
-            <th>sipProxyAddress</th>
-            <th>proxyAddresses</th>
-            <th>assignedPlans</th>
-            <th>usageLocation</th>
-            <th>physicalDeliveryOfficeName</th>
-            <th>onPremisesDistinguishedName</th>
-            <th>onPremisesSecurityIdentifier</th>
-          </thead>
-          <tbody>
-            {% for person in list %}
-              <tr>
-                <td>{{ person['jobTitle'] }}</td>
-                <td>{{ person['userIdentities'] }}</td>
-                <td>{{ person['givenName'] }}</td>
-                <td>{{ person['surname'] }}</td>
-                <td>{{ person['displayName'] }}</td>
-                <td>{{ person['userPrincipalName'] }}</td>
-                <td>{{ person['signInNames'] }}</td>
-                <td>{{ person['otherMails'] }}</td>
-                <td>{{ person['mailNickname'] }}</td>
-                <td>{{ person['extension_e26ba073fd5142af9fa6455daecdcc9c_franchises'] }}</td>
-                <td>{{ person['companyName'] }}</td>
-                <td>{{ person['department'] }}</td>
-                <td>{{ person['streetAddress'] }}</td>
-                <td>{{ person['city'] }}</td>
-                <td>{{ person['state'] }}</td>
-                <td>{{ person['country'] }}</td>
-                <td>{{ person['postalCode'] }}</td>
-                <td>{{ person['mobile'] }}</td>
-                <td>{{ person['telephoneNumber'] }}</td>
-                <td>{{ person['facsimileTelephoneNumber'] }}</td>
-                <td>{{ person['employeeId']}}</td>
-                <td>{{ person['creationType']}}</td>
-                <td>{{ person['objectType']}}</td>
-                <td>{{ person['userType']}}</td>
-                <td>{{ person['showInAddressList']}}</td>
-                <td>{{ person['preferredLanguage']}}</td>
-                <td>{{ person['assignedLicenses']}}</td>
-                <td>{{ person['sipProxyAddress']}}</td>
-                <td>{{ person['proxyAddresses']}}</td>
-                <td>{{ person['assignedPlans']}}</td>
-                <td>{{ person['usageLocation']}}</td>
-                <td>{{ person['physicalDeliveryOfficeName']}}</td>
-                <td>{{ person['onPremisesDistinguishedName']}}</td>
-                <td>{{ person['onPremisesSecurityIdentifier']}}</td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      <div class="clear-both">
-        <br>
-        <hr>
-        <div id="footer">
-          <div id="footer-inner">
-            <div id="footer-custom">
-                <div>
-                <img class="footer-img" alt="" src="{{ url_for('static',filename='Images/footer-img.png') }}">
-                <p style="text-align: center;">
-                  ©2016 Home Instead, Inc. All Rights Reserved.<br>
-                  In North America, call our corporate office at <span class="baec5a81-e4d6-4674-97f3-e9220f0136c1" style="white-space: nowrap;">800.640.3914<a title="Call: 800.640.3914" href="#" unsafe.unsafe="" unsafe.style="margin: 0px; border: currentColor; left: 0px; top: 0px; width: 16px; height: 16px; right: 0px; bottom: 0px; overflow: hidden; vertical-align: middle; float: none; display: inline; white-space: nowrap; position: static !important;"></a></span>. Outside North America, call <span class="baec5a81-e4d6-4674-97f3-e9220f0136c1" style="white-space: nowrap;">402.498.4466<a title="Call: 402.498.4466" href="#" unsafe.unsafe="" unsafe.style="margin: 0px; border: currentColor; left: 0px; top: 0px; width: 16px; height: 16px; right: 0px; bottom: 0px; overflow: hidden; vertical-align: middle; float: none; display: inline; white-space: nowrap; position: static !important;"></a></span><br>
-                  Each Home Instead Senior Care franchise office is independently owned and operated.<br>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </body>
+  {% include 'header.html' %}
+  {% macro display_list(list) -%}
+  {%- endmacro %}
+  {% macro split_string(person, key, seperator) -%}
+    {% if key in person %}
+      {% for item in person[key].split(seperator) %}
+        {{ item }}<br>
+      {% endfor %}
+    {% endif %}
+  {%- endmacro %}
+  <body >
+    <table class="table table-striped grid-table">
+      <thead class="grid-header">
+        <th>jobTitle</th>
+        <th>userIdentities</th>
+        <th>givenName</th>
+        <th>surname</th>
+        <th>displayName</th>
+        <th>userPrincipalName</th>
+        <th>signInNames</th>
+        <th>otherMails</th>
+        <th>mailNickname</th>
+        <th>franchises</th>
+        <th>companyName</th>
+        <th>department</th>
+        <th>streetAddress</th>
+        <th>city</th>
+        <th>state</th>
+        <th>country</th>
+        <th>postalCode</th>
+        <th>mobile</th>
+        <th>telephoneNumber</th>
+        <th>facsimileTelephoneNumber</th>
+        <th>employeeId</th>
+        <th>creationType</th>
+        <th>objectType</th>
+        <th>userType</th>
+        <th>showInAddressList</th>
+        <th>preferredLanguage</th>
+        <th>assignedLicenses</th>
+        <th>sipProxyAddress</th>
+        <th>proxyAddresses</th>
+        <th>assignedPlans</th>
+        <th>usageLocation</th>
+        <th>physicalDeliveryOfficeName</th>
+        <th>onPremisesDistinguishedName</th>
+        <th>onPremisesSecurityIdentifier</th>
+      </thead>
+      <tbody>
+        {% for person in list %}
+          <tr>
+            <td>{{ person['jobTitle'] }}</td>
+            <td>{{ display_list(person['userIdentities']) }}</td>
+            <td>{{ person['givenName'] }}</td>
+            <td>{{ person['surname'] }}</td>
+            <td>{{ person['displayName'] }}</td>
+            <td>{{ person['userPrincipalName'] }}</td>
+            <td>{{ display_list(person['signInNames']) }}</td>
+            <td>{{ display_list(person['otherMails']) }}</td>
+            <td>{{ person['mailNickname'] }}</td>
+            <td>{{ split_string(person, 'extension_e26ba073fd5142af9fa6455daecdcc9c_franchises', ',') }}</td>
+            <td>{{ person['companyName'] }}</td>
+            <td>{{ person['department'] }}</td>
+            <td>{{ person['streetAddress'] }}</td>
+            <td>{{ person['city'] }}</td>
+            <td>{{ person['state'] }}</td>
+            <td>{{ person['country'] }}</td>
+            <td>{{ person['postalCode'] }}</td>
+            <td>{{ person['mobile'] }}</td>
+            <td>{{ person['telephoneNumber'] }}</td>
+            <td>{{ person['facsimileTelephoneNumber'] }}</td>
+            <td>{{ person['employeeId'] }}</td>
+            <td>{{ person['creationType'] }}</td>
+            <td>{{ person['objectType'] }}</td>
+            <td>{{ person['userType'] }}</td>
+            <td>{{ person['showInAddressList'] }}</td>
+            <td>{{ person['preferredLanguage'] }}</td>
+            <td>{{ display_list(person['assignedLicenses']) }}</td>
+            <td>{{ person['sipProxyAddress'] }}</td>
+            <td>{{ display_list(person['proxyAddresses']) }}</td>
+            <td>{{ display_list(person['assignedPlans']) }}</td>
+            <td>{{ person['usageLocation'] }}</td>
+            <td>{{ person['physicalDeliveryOfficeName'] }}</td>
+            <td>{{ person['onPremisesDistinguishedName'] }}</td>
+            <td>{{ person['onPremisesSecurityIdentifier'] }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% include 'footer.html' %}
+  </body>
 </html>

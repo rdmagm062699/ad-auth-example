@@ -1,0 +1,35 @@
+<head>
+  <link rel="stylesheet" href="/auth_example.css">
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='auth_example.css') }}">
+</head>
+<title>Caregivers</title>
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+  </div>
+  <div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+      <li><a href="/">Home</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="navbar-text">
+        Hello
+      </li>
+      <li>
+        <a href="/logout">Sign out</a>
+      </li>
+    </ul>
+  </div>
+</div>
+<div id="header">
+  <div id="header-inner">
+    <h1 id="logo"><a href="/" title="Insight Exporter"></a>
+      <span id="logo-title">CAREGivers</span>
+    </h1>
+    <div id="header-custom"></div>
+  </div>
+</div>
