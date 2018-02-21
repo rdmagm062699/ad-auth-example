@@ -12,7 +12,7 @@ microsoft = microsoft_client(config, mod_auth)
 @mod_auth.route('/login', methods = ['POST', 'GET'])
 def login():
     if 'microsoft_token' in session:
-        return redirect(url_for('auth.me'))
+        return redirect(url_for('b2c_mgmt.my_caregivers'))
     return _authenticate(session, microsoft)
 
 @mod_auth.route('/logout', methods = ['POST', 'GET'])
@@ -33,7 +33,7 @@ def authorized():
 
     session['access_token'] = response['access_token']
     login_user(_user())
-    return redirect(url_for('auth.me'))
+    return redirect(url_for('b2c_mgmt.my_caregivers'))
 
 @mod_auth.route('/me')
 @login_required

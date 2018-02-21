@@ -13,7 +13,9 @@ login_manager.init_app(app)
 login_manager.login_view = "auth.login"
 
 from app.mod_auth.controllers import mod_auth as auth_module
+from app.b2c_mgmt.controllers import mod_b2c_mgmt as b2c_module
 app.register_blueprint(auth_module)
+app.register_blueprint(b2c_module)
 
 
 @app.errorhandler(404)
