@@ -8,5 +8,4 @@ mod_b2c_mgmt = Blueprint('b2c_mgmt', __name__, url_prefix='/b2c_mgmt')
 @mod_b2c_mgmt.route('/my_caregivers')
 @login_required
 def my_caregivers():
-    list = b2c_users(config)
-    return render_template('list_b2c.html', list=list)
+    return render_template('list_b2c.html', list=b2c_users(config))
