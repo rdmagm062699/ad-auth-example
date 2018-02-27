@@ -1,11 +1,12 @@
 ---
-services: active-directory-b2c
+services: azure-graph-api, active-directory-b2c
 platforms: python
+author: adammartin-hisc
 ---
 
 # Sign in Azure AD Users using Python-Flask Open Source Libraries
 
-This sample demonstrates how to use a 3rd party Python-Flask library ([flask-oauthlib](https://github.com/lepture/flask-oauthlib)) to do oAuth 2.0 against Azure AD.  It then validates the access token using another 3rd party library ([python-jose](https://github.com/mpdavis/python-jose)).
+This sample demonstrates how to use a 3rd party Python-Flask library ([flask-oauthlib](https://github.com/lepture/flask-oauthlib)) to do oAuth 2.0 against Azure AD.  This then grabs identities from Azure B2C and shows them as a list.
 
 
 ## How To Run This Sample
@@ -22,61 +23,38 @@ From your shell or command line:
 
 `git clone [THIS REPOSITORY]`
 
-### Step 2: Run the sample using our sample tenant
+### Step 2: Create your own application
 
-TODO: Fix this documentation (copied from another Microsoft example:
-
-If you'd like to see the sample working immediately, you can simply run the app as-is without any code changes. The default configuration for this application performs sign-in & sign-up using our sample B2C tenant, `fabrikamb2c.onmicrosoft.com`.  It uses a [policy](https://azure.microsoft.com/documentation/articles/active-directory-b2c-reference-policies) named `b2c_1_susi`. Sign up for the app using any of the available account types, and try signing in again with the same account.
-
-Run this sample with the following by setting your flask environment variable and running the sample in the terminal.
-
-```
-$ export FLASK_APP=example_app.py && flask run
-```
-
-You can then navigate to `http://localhost:5000`.
-
-### Step 3: Create your own application
-
-TODO: Fix this documentation (copied from another Microsoft example:
-
-Now you need to create your own appliation in your B2C tenant, so that your app has its own client ID.  You can do so following [the generic instructions here](https://azure.microsoft.com/documentation/articles/active-directory-b2c-app-registration).  Be sure to include the following information in your app registration:
+Now you need to create your own appliation in your AD tenant, so that your app has its own client ID.
 
 - Enable the **Web App/Web API** setting for your application.
 - Add a redirect_uri for your app. For this sample, it should be in the form of: `https://yourwebsite/login/authorized`. The OAuth library
 - Copy the client ID generated for your application, so you can use it in the next step.
 - Generate a client secret for your application.
 
-### Step 6: Configure the sample to use your Application
+You will also need a Graph API app if you are going to properly generate the list of identities.
 
-TODO: Fix this documentation (copied from another Microsoft example:
+### Step 2: Run the sample using our sample tenant
 
-Now you can replace the app's default configuration with your own.  Open the `b2cflaskapp.py` file and replace the following values with the ones you created in the previous steps.  
+Run this sample with the following by setting your flask environment variable and running the sample in the terminal.
 
-```python
-tenant_id = 'fabrikamb2c.onmicrosoft.com'
-client_id = 'fdb91ff5-5ce6-41f3-bdbd-8267c817015d'
-client_secret = 'YOUR_SECRET'
-policy_name = 'b2c_1_susi'
+Create a `config/config.yml` file and add the following content (with appropriate data from previous steps):
+
+```json
+client_id: [YOUR CLIENT ID FROM PREVIOUS STEP]
+client_secret: [YOUR CLIENT SECRET FROM PREVIOUS STEP]
+microsoft_graph_api_url: 'https://graph.microsoft.com/v1.0/'
+user_attributes: 'id,businessPhones,city,companyName,country,department,displayName,givenName,hireDate,imAddresses,interests,jobTitle,mail,mailNickname,mobilePhone,mySite,officeLocation,pastProjects,postalCode,preferredLanguage,preferredName,proxyAddresses,responsibilities,schools,skills,state,streetAddress,surname,usageLocation,userPrincipalName,userType'
+ad_graph_url: 'https://graph.windows.net'
+graph_tenant_id: [YOUR GRAPH TENANT ID]
+graph_client_id: [YOUR GRAPH CLIENT APP ID]
+graph_client_secret: [YOUR GRAPH CLIENT SECRET]
 ```
-## Questions and Issues
 
-TODO: Fix this documentation (copied from another Microsoft example:
+run the following from command line
 
-Please file any questions or problems with the sample as a github issue.  You can also post on StackOverflow with the tag ```azure-ad-b2c```.  For oAuth2.0 library issues, please see note above.
+```
+$ python run.py
+```
 
-This sample was tested with Python 2.7.10, Flask 0.11.1, Flask-OAuthlib 0.9.3 and python-jose 1.3.2
-
-## Acknowledgements
-
-TODO: Fix this documentation (copied from another Microsoft example:
-
-The flask & django libraries are built ontop of the core python oauthlib.
-
-[flask-oauthlib](https://github.com/lepture/flask-oauthlib)
-
-[python-jose](https://github.com/mpdavis/python-jose)
-
-[oauthlib](https://github.com/idan/oauthlib)
-
-[django-oauth-toolkit](https://github.com/evonove/django-oauth-toolkit)
+You can then navigate to `http://localhost:8080`.
