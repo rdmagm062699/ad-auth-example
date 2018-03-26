@@ -13,6 +13,7 @@ microsoft = microsoft_client(config, mod_auth)
 def login():
     if 'microsoft_token' in session:
         return redirect(url_for('b2c_mgmt.my_caregivers'))
+    session['_flashes'] = [] # Bad way to clear unnecessary flashed messages for authentication
     return _authenticate(session, microsoft)
 
 @mod_auth.route('/logout', methods = ['POST', 'GET'])
