@@ -2,15 +2,17 @@ from flask import Blueprint, redirect, url_for, session, request, render_templat
 from flask_login import login_required, current_user
 from app.b2c_mgmt.forms import CreateFranchiseGroupForm
 from app.b2c_mgmt.user_operations import UserOperations
+from app.b2c_mgmt.transformers.transformers import Transformers
 from app import app, config, login_manager
+import types
 
 mod_b2c_mgmt = Blueprint('b2c_mgmt', __name__, url_prefix='/b2c_mgmt')
 
 @mod_b2c_mgmt.route('/my_caregivers')
 @login_required
 def my_caregivers():
-    ops = UserOperations(config)
-    return render_template('list_users.html', list=ops.users())
+    persons = Transformers().transform(UserOperations(config).users())
+    return render_template('list_users.html', persons=persons, attributes=config['iam_user_attributes'].split(','), list=list, isinstance=isinstance)
 
 @mod_b2c_mgmt.route('/add_franchise', methods=['GET', 'POST'])
 @login_required

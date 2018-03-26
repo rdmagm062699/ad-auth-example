@@ -1,29 +1,30 @@
 <html>
   {% include 'header.html' %}
-  {% macro display_list(list) -%}
-    {% for item in list %}
+  {% macro display_list(my_list) -%}
+    {% for item in my_list %}
       {{ item }}<br>
     {% endfor %}
-  {%- endmacro %}
-  {% macro split_string(person, key, seperator) -%}
-    {% if key in person %}
-      {% for item in person[key].split(seperator) %}
-        {{ item }}<br>
-      {% endfor %}
-    {% endif %}
   {%- endmacro %}
   <body >
     <table class="table table-striped grid-table">
       <thead class="grid-header">
-        {% for key in list[0].keys() %}
-          <th>{{key}}</th>
+        {% for key in persons[0].keys() %}
+          {% if key in attributes %}
+            <th>{{key}}</th>
+          {% endif %}
         {% endfor %}
       </thead>
       <tbody>
-        {% for person in list %}
+        {% for person in persons %}
           <tr>
-            {% for value in person.values() %}
-              <td>{{value}}</td>
+            {% for key, value in person.items() %}
+              {% if key in attributes %}
+                {% if isinstance(value, list) %}
+                  <td>{{ display_list(value) }}</td>
+                {% else %}
+                  <td>{{value}}</td>
+                {% endif %}
+              {% endif %}
             {% endfor %}
           </tr>
         {% endfor %}
