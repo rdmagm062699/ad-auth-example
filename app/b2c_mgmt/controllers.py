@@ -23,6 +23,7 @@ def add_user():
         last_name = form.last_name.data
         email = form.email.data
         franchise_number = form.franchise_number.data
-        flash('You entered %s' % { 'first_name': first_name, 'last_name': last_name, 'email': email, 'franchise_number': franchise_number })
+        result = UserOperations(config).create_user(first_name, last_name, email, franchise_number)
+        flash('The result is %s' % result)
         return redirect(url_for('b2c_mgmt.add_user'))
     return render_template('create_user.html', form=form)

@@ -24,6 +24,13 @@ class UserOperations:
         result = requests.get(self._user_endpoint(self.config), headers=headers, params=data, verify=False).text # this is spike so cert is self-signed so don't verify
         return json.loads(result)['Resources']
 
+    def create_user(self, first_name, last_name, email, franchise_number):
+        headers = {'Authorization': self._auth_token(self.config), 'Content-Type': 'application/scim+json' }
+        data = self._create_caregiver_data(first_name, last_name, email, franchise_number, self.config['iam_default_password'])
+        result = requests.post(self._user_endpoint(self.config), headers=headers, data=data, verify=False)
+        print(result)
+        return json.loads(result.text)['Resources']
+
     def _token(self, config):
         auth = HTTPBasicAuth(config['iam_client_id'], config['iam_client_secret'])
         data = {'grant_type':'client_credentials'}
@@ -44,8 +51,26 @@ class UserOperations:
         return 'Bearer %s' % self._token(config)['access_token']
 
     def _franchise_filter(self, franchises):
-        # 'filter=franchises eq "100"'
         if franchises:
             filters = ['franchises eq "{}"'.format(franchise) for franchise in franchises]
             return ' or '.join(filters)
         return ''
+
+    def _create_caregiver_data(self, first_name, last_name, email, franchise_number, password):
+        return {
+            'schemas': ['urn:ietf:params:scim:schemas:extension:gluu:2.0:User','urn:ietf:params:scim:schemas:core:2.0:User'],
+            'userName': email,
+            'name': {
+                'familyName': last_name,
+                'givenName': first_name
+            },
+            'displayName': first_name + ' ' + last_name,
+            'emails': [{
+                'value': email,
+                'type': 'work',
+                'primary': 'true'
+            }],
+            'password': password,
+            'groups': 'CAREGiver'#,
+            #'franchises': [franchise_number]
+        }
