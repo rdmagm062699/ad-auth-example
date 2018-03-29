@@ -1,76 +1,40 @@
-from requests.auth import HTTPBasicAuth
-import urllib3, urllib # This is only due to spike having self-signed cert.
-import string, json, requests
-
-def pretty_print(req):
-    print('{}\n{}\n{}\n\n{}'.format(
-        '-----------START-----------',
-        req.method + ' ' + req.url,
-        '\n'.join('{}: {}'.format(k, v) for k, v in req.headers.items()),
-        req.body,
-    ))
+from okta import UsersClient
+from okta.framework.ApiClient import ApiClient #UsersClient does not support all attributes especially custom attribtues
+import string, json, requests, urllib.parse
 
 class UserOperations:
     def __init__(self, config):
-        # We should do client_secret_post
-        # or some other option then client_secret_basic
-        # this is also using SCIM Test Mode instead of UMA 2.0
         self.config = config
+        self.user_client = UsersClient(self.config['iam_server_url'], self.config['iam_client_secret'])
+        self.api_client = ApiClient(base_url=self.config['iam_server_url'], api_token=self.config['iam_client_secret'], pathname='/api/v1/users')
 
     def users(self, franchises=['100']): # we are going to default all requests to a list containing franchise 100 for now.
-        self._disable_self_signed_cert_warnings() # We are using a self signed cert on our Gluu test server for this spike.
-        headers = {'Authorization': self._auth_token(self.config)}
-        data = {'filter': self._franchise_filter(franchises), 'startIndex': 1, 'count': 100}
-        result = requests.get(self._user_endpoint(self.config), headers=headers, params=data, verify=False).text # this is spike so cert is self-signed so don't verify
-        return json.loads(result)['Resources']
+        #return self.user_client.get_paged_users() # won't work because it doesn't contain franchise numbers!!!
+        url_path='?'+self._franchise_filter(franchises) # Need to deal with url_encoding problems that the ApiClient doesn't handle.
+        return json.loads(self.api_client.get_path(url_path=url_path).text) # No paging handled here!
 
     def create_user(self, first_name, last_name, email, franchise_number):
-        headers = {'Authorization': self._auth_token(self.config), 'Content-Type': 'application/scim+json' }
-        data = self._create_caregiver_data(first_name, last_name, email, franchise_number, self.config['iam_default_password'])
-        result = requests.post(self._user_endpoint(self.config), headers=headers, data=data, verify=False)
-        print(result)
-        return json.loads(result.text)['Resources']
-
-    def _token(self, config):
-        auth = HTTPBasicAuth(config['iam_client_id'], config['iam_client_secret'])
-        data = {'grant_type':'client_credentials'}
-        result = requests.post(self._token_endpoint(config), auth=auth, data=data, verify=False).text # this is spike so cert is self-signed
-        return json.loads(result)
-
-    def _disable_self_signed_cert_warnings(self):
-        urllib3.disable_warnings()
-
-    def _token_endpoint(self, config):
-        return config['iam_server_url'] + '/oxauth/restv1/token'
-
-    def _user_endpoint(self, config):
-        return config['iam_server_url'] + '/identity/restv1/scim/v2/Users'
-
-    def _auth_token(self, config):
-        token = self._token(config)
-        return 'Bearer %s' % self._token(config)['access_token']
+        user = self._create_caregiver_data(first_name=first_name, last_name=last_name, email=email, franchise_number=franchise_number)
+        return self.user_client.create_user(user=user, activate=True)
 
     def _franchise_filter(self, franchises):
         if franchises:
-            filters = ['franchises eq "{}"'.format(franchise) for franchise in franchises]
-            return ' or '.join(filters)
+            filters = ['profile.franchises eq "{}"'.format(franchise) for franchise in franchises]
+            query = {'search': ' or '.join(filters)}
+            return urllib.parse.urlencode(query, quote_via=urllib.parse.quote)
         return ''
 
-    def _create_caregiver_data(self, first_name, last_name, email, franchise_number, password):
+    def _create_caregiver_data(self, first_name, last_name, email, franchise_number):
         return {
-            'schemas': ['urn:ietf:params:scim:schemas:extension:gluu:2.0:User','urn:ietf:params:scim:schemas:core:2.0:User'],
-            'userName': email,
-            'name': {
-                'familyName': last_name,
-                'givenName': first_name
+            'profile': {
+                'lastName': last_name,
+                'firstName': first_name,
+                'email': email,
+                'login': email,
+                'franchises': [franchise_number]
             },
-            'displayName': first_name + ' ' + last_name,
-            'emails': [{
-                'value': email,
-                'type': 'work',
-                'primary': 'true'
-            }],
-            'password': password,
-            'groups': 'CAREGiver'#,
-            #'franchises': [franchise_number]
+            'credentials': {
+                'password': { 'value': self.config['iam_default_password'] }
+            },
+            'groupIds': self.config['iam_default_caregiver_group_ids']
         }

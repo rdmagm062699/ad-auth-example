@@ -5,3 +5,4 @@ flask-login
 oauthlib
 pyyaml
 azure-graphrbac
+okta

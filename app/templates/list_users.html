@@ -8,22 +8,22 @@
   <body >
     <table class="table table-striped grid-table">
       <thead class="grid-header">
-        {% for key in persons[0].keys() %}
-          {% if key in attributes %}
-            <th>{{key}}</th>
-          {% endif %}
+        {% for attribute in attributes %}
+          <th>{{attribute}}</th>
         {% endfor %}
       </thead>
       <tbody>
         {% for person in persons %}
           <tr>
-            {% for key, value in person.items() %}
-              {% if key in attributes %}
-                {% if isinstance(value, list) %}
-                  <td>{{ display_list(value) }}</td>
+            {% for attribute in attributes%}
+              {% if attribute in person %}
+                {% if isinstance(person[attribute], list) %}
+                  <td>{{ display_list(person[attribute]) }}</td>
                 {% else %}
-                  <td>{{value}}</td>
+                  <td>{{person[attribute]}}</td>
                 {% endif %}
+              {% else %}
+                <td>&nbsp;</td>
               {% endif %}
             {% endfor %}
           </tr>
