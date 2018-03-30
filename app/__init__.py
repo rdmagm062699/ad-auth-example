@@ -6,7 +6,7 @@ app = Flask(__name__)
 app.config.from_object('config')
 
 with open("config/config.yml", 'r') as ymlfile:
-    config = yaml.load(ymlfile)
+    config = yaml.load(ymlfile) # Use environment variables instead?
 
 login_manager = LoginManager()
 login_manager.init_app(app)
