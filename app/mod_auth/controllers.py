@@ -9,6 +9,9 @@ mod_auth = Blueprint('auth', __name__)
 microsoft = microsoft_client(config, mod_auth)
 
 @mod_auth.route('/')
+def route_to_list():
+    return redirect(url_for('b2c_mgmt.my_caregivers'))
+
 @mod_auth.route('/login', methods = ['POST', 'GET'])
 def login():
     if 'microsoft_token' in session:
