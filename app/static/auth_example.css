@@ -32,10 +32,8 @@ html {
 	font-family: sans-serif;
 	-webkit-text-size-adjust: 100%;
 	-ms-text-size-adjust: 100%
-}
-
-body {
-	margin: 0
+  font-size: 62.5%;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0)
 }
 
 a:focus {
@@ -166,6 +164,16 @@ button[disabled],
 html input[disabled] {
 	cursor: default
 }
+
+.button {
+    -moz-appearance: button;
+    -ms-appearance: button;
+    -o-appearance: button;
+    -webkit-appearance: button;
+    appearance: button;
+    text-decoration: none;
+    padding: 0.2em 0.4em;
+}​
 
 input[type="checkbox"],
 input[type="radio"] {
@@ -303,17 +311,26 @@ table {
 	box-sizing: border-box
 }
 
-html {
-	font-size: 62.5%;
-	-webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #333;
+  background-color: #fff auto;
+  margin: 0 auto;
+  padding-top: 50px;
+  padding-bottom: 20px
 }
 
-body {
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 14px;
-	line-height: 1.428571429;
-	color: #333;
-	background-color: #fff
+.body-content {
+	padding-left: 15px;
+	padding-right: 15px
+}
+
+.center-div
+{
+     margin: 0 auto;
+     width: max-content;
 }
 
 input,
@@ -7137,16 +7154,6 @@ td.visible-print {
 
 }
 
-body {
-	padding-top: 50px;
-	padding-bottom: 20px
-}
-
-.body-content {
-	padding-left: 15px;
-	padding-right: 15px
-}
-
 .dl-horizontal dt {
 	white-space: normal
 }
@@ -7973,12 +7980,6 @@ table.grid-table .grid-filter {
 	width: 245px;
 	position: relative;
 	left: 23.5%
-}
-
-.utilization-percentage {
-	margin: 0;
-	padding: 0;
-	clear: both
 }
 
 .home-links {

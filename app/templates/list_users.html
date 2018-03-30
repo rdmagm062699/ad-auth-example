@@ -6,30 +6,33 @@
     {% endfor %}
   {%- endmacro %}
   <body >
-    <table class="table table-striped grid-table">
-      <thead class="grid-header">
-        {% for attribute in attributes %}
-          <th>{{attribute}}</th>
-        {% endfor %}
-      </thead>
-      <tbody>
-        {% for person in persons %}
-          <tr>
-            {% for attribute in attributes%}
-              {% if attribute in person %}
-                {% if isinstance(person[attribute], list) %}
-                  <td>{{ display_list(person[attribute]) }}</td>
+    <div class='center-div'>
+      <table class="table table-striped grid-table">
+        <thead class="grid-header">
+          {% for attribute in attributes %}
+            <th>{{attribute}}</th>
+          {% endfor %}
+        </thead>
+        <tbody>
+          {% for person in persons %}
+            <tr>
+              {% for attribute in attributes%}
+                {% if attribute in person %}
+                  {% if isinstance(person[attribute], list) %}
+                    <td>{{ display_list(person[attribute]) }}</td>
+                  {% else %}
+                    <td>{{person[attribute]}}</td>
+                  {% endif %}
                 {% else %}
-                  <td>{{person[attribute]}}</td>
+                  <td>&nbsp;</td>
                 {% endif %}
-              {% else %}
-                <td>&nbsp;</td>
-              {% endif %}
-            {% endfor %}
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a class='button' href='add_user'>Add CAREGiver</a>
+    </div>
     {% include 'footer.html' %}
   </body>
 </html>
