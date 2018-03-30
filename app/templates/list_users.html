@@ -1,38 +1,36 @@
-<html>
-  {% include 'header.html' %}
+{% extends "base.html" %}
+
+{% block content %}
   {% macro display_list(my_list) -%}
     {% for item in my_list %}
       {{ item }}<br>
     {% endfor %}
   {%- endmacro %}
-  <body >
-    <div class='center-div'>
-      <table class="table table-striped grid-table">
-        <thead class="grid-header">
-          {% for attribute in attributes %}
-            <th>{{attribute}}</th>
-          {% endfor %}
-        </thead>
-        <tbody>
-          {% for person in persons %}
-            <tr>
-              {% for attribute in attributes%}
-                {% if attribute in person %}
-                  {% if isinstance(person[attribute], list) %}
-                    <td>{{ display_list(person[attribute]) }}</td>
-                  {% else %}
-                    <td>{{person[attribute]}}</td>
-                  {% endif %}
+  <div class='center-div'>
+    <table class="table table-striped grid-table">
+      <thead class="grid-header">
+        {% for attribute in attributes %}
+          <th>{{attribute}}</th>
+        {% endfor %}
+      </thead>
+      <tbody>
+        {% for person in persons %}
+          <tr>
+            {% for attribute in attributes%}
+              {% if attribute in person %}
+                {% if isinstance(person[attribute], list) %}
+                  <td>{{ display_list(person[attribute]) }}</td>
                 {% else %}
-                  <td>&nbsp;</td>
+                  <td>{{person[attribute]}}</td>
                 {% endif %}
-              {% endfor %}
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      <a class='button' href='add_user'>Add CAREGiver</a>
-    </div>
-    {% include 'footer.html' %}
-  </body>
-</html>
+              {% else %}
+                <td>&nbsp;</td>
+              {% endif %}
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <a class='button' href='add_user'>Add CAREGiver</a>
+  </div>
+{% endblock %}

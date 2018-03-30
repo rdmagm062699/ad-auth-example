@@ -1,5 +1,6 @@
-<html>
-  {% include 'header.html' %}
+{% extends "base.html" %}
+
+{% block content %}
   {% macro render_field(field, placeholder=None) %}
     <div>
         {% set css_class = 'form-control ' + kwargs.pop('class', '') %}
@@ -11,7 +12,6 @@
         </p>
     </div>
   {% endmacro %}
-  <body>
     <div class='center-div'>
       <legend>Create User</legend>
       <p>
@@ -35,6 +35,4 @@
         <button type="submit" name="submit">Add User</button>
       </form>
     </div>
-    {% include 'footer.html' %}
-  </body>
-</html>
+{% endblock %}
