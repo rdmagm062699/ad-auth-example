@@ -1,5 +1,5 @@
 ---
-services: azure-graph-api, active-directory-b2c
+services: azure-graph-api, OKTA
 platforms: python
 author: adammartin-hisc
 ---
