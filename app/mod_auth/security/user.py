@@ -34,7 +34,7 @@ class User:
         #
         # In Azure Active Directory there have been many changes to the representation
         # of a user.  There is a synchronization tool that handles the mapping from
-        # Local Active Directory and Azure Active Directory.  I am un sure of how
+        # Local Active Directory and Azure Active Directory.  I am unsure of how
         # this mapping equates.  At the end of the day all that you can get from either
         # the Microsoft Graph API (latest way to get to Azure Active Directory) or
         # Azure Graph API (the older way to get to Azure Active Directory) is a single field:
@@ -46,8 +46,4 @@ class User:
         # tech stack is going.
         #
         # For this spike I am always returning a FranchiseNumber.  Real code should not do this.
-        pretendFranchises = ['100']
-        primaryFranchise = self.__data['companyName']
-        if primaryFranchise:
-            return [primaryFranchise]
-        return pretendFranchises
+        return [franchise.strip() for franchise in self.__data['companyName'].split(',')] if self.__data['companyName'] else ['100']

@@ -42,7 +42,7 @@ def authorized():
 @mod_auth.route('/me')
 @login_required
 def me():
-    return render_template('auth/me.html', user_identity=current_user.data())
+    return render_template('auth/me.html', user_identity=current_user.data(), franchises=current_user.franchises())
 
 # If library is having trouble with refresh, uncomment below and implement refresh handler
 # see https://github.com/lepture/flask-oauthlib/issues/160 for instructions on how to do this

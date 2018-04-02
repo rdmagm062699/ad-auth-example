@@ -3,6 +3,7 @@
 {% block content %}
   <div class='center-div'>
     <h3>User's Identity</h3><br>
+    franchises={{franchises}}<br>
     {% for key, value in user_identity.items() %}
       {% if '@' not in key %}
         {{key}}={{value}}<br>
