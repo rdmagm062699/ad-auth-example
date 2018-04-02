@@ -48,8 +48,8 @@ Run this sample with the following by setting your flask environment variable an
 Create a `config/config.yml` file and add the following content (with appropriate data from previous steps):
 
 ```json
-client_id: [YOUR CLIENT ID FROM PREVIOUS STEP]
-client_secret: [YOUR CLIENT SECRET FROM PREVIOUS STEP]
+client_id: [YOUR_CLIENT_ID]
+client_secret: [YOUR_CLIENT_SECRET]
 microsoft_graph_api_url: 'https://graph.microsoft.com/v1.0/'
 user_attributes: 'id,businessPhones,city,companyName,country,department,displayName,givenName,hireDate,imAddresses,interests,jobTitle,mail,mailNickname,mobilePhone,mySite,officeLocation,pastProjects,postalCode,preferredLanguage,preferredName,proxyAddresses,responsibilities,schools,skills,state,streetAddress,surname,usageLocation,userPrincipalName,userType'
 ad_graph_url: 'https://graph.windows.net'
