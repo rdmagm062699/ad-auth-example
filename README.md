@@ -8,8 +8,8 @@ author: adammartin-hisc
 
 Before working this repository you will need:
 
-* (Pyenv)[https://github.com/pyenv/pyenv] - This is for the purpose of managing python version consistently.  Please check the .python-version file for the current version required for the spike.
-* (Virtualenv or Equivalent)[http://docs.python-guide.org/en/latest/dev/virtualenvs/] - There are multiple ways to manage virtual environments but you should control/isolate both your python version and the dependencies you leverage.
+* [Pyenv](https://github.com/pyenv/pyenv) - This is for the purpose of managing python version consistently.  Please check the .python-version file for the current version required for the spike.
+* [Virtualenv or Equivalent](http://docs.python-guide.org/en/latest/dev/virtualenvs/) - There are multiple ways to manage virtual environments but you should control/isolate both your python version and the dependencies you leverage.
 
 # Sign in Azure AD Users using Python-Flask Open Source Libraries
 
