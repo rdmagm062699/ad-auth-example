@@ -11,6 +11,9 @@ def b2c_user(email, config):
 def b2c_users(config):
     return [_convert_user(user) for user in _client(config).users.list()]
 
+def create_user(config, first_name, last_name, email, franchise_number):
+    return None
+
 def _convert_user(user):
     if user:
         user.enable_additional_properties_sending()

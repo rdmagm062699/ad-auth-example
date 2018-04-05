@@ -16,9 +16,9 @@
       <li><a href="/">Home</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li class="navbar-text">
+      <li>
         {% if current_user.is_authenticated %}
-          Hello {{ current_user.name() }}!
+          <a href="/me">Hello {{ current_user.name() }}!</a>
         {% endif %}
       </li>
       <li>

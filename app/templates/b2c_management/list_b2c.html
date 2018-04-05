@@ -1,5 +1,6 @@
-<html>
-  {% include 'header.html' %}
+{% extends "base.html" %}
+
+{% block content %}
   {% macro display_list(list) -%}
     {% for item in list %}
       {{ item }}<br>
@@ -12,7 +13,7 @@
       {% endfor %}
     {% endif %}
   {%- endmacro %}
-  <body >
+  <div class='center-div'>
     <table class="table table-striped grid-table">
       <thead class="grid-header">
         <th>jobTitle</th>
@@ -91,6 +92,5 @@
         {% endfor %}
       </tbody>
     </table>
-    {% include 'footer.html' %}
-  </body>
-</html>
+  </div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% macro render_field(field, placeholder=None) %}
+    <div>
+        {% set css_class = 'form-control ' + kwargs.pop('class', '') %}
+        {{ field(class=css_class, placeholder=placeholder, **kwargs) }}
+        <p>
+          {% for error in field.errors %}
+              <span style='color: red;'>[{{ error }}]</span>
+          {% endfor %}
+        </p>
+    </div>
+  {% endmacro %}
+    <div class='center-div'>
+      <legend>Create User</legend>
+      <form method='POST' action='add_user' accept-charset='UTF-8' role='form'>
+        {{ form.csrf_token }}
+        {{ render_field(form.first_name, placeholder='First Name', autofocus=true) }}
+        {{ render_field(form.last_name, placeholder='Last Name', autofocus='') }}
+        {{ render_field(form.email, placeholder='email', autofocus='') }}
+        {{ render_field(form.franchise_number, placeholder='Franchise Number', autofocus='') }}
+        <button type='submit' name='submit'>Add User</button>
+      </form>
+    </div>
+{% endblock %}
