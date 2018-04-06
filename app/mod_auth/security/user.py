@@ -46,7 +46,7 @@ class User:
         # tech stack is going.
         #
         # For this spike I am always returning a FranchiseNumber.  Real code should not do this.
-        pretendFranchises = ['100']
+        pretendFranchises = [100]
         primaryFranchise = self.__data['companyName']
         if primaryFranchise:
             return [primaryFranchise]

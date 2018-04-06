@@ -204,14 +204,6 @@ textarea {
 	vertical-align: top
 }
 
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-  display: block;
-  overflow-x: auto;
-  white-space: nowrap;
-}
-
 @media print {
 	* {
 		color: #000 !important;
@@ -331,6 +323,7 @@ body {
 {
      margin: 0 auto;
      width: max-content;
+     overflow: auto;
 }
 
 input,
@@ -1574,6 +1567,11 @@ pre code {
 }
 
 table {
+	border-collapse: collapse;
+	border-spacing: 0;
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
 	max-width: 100%;
 	background-color: transparent
 }

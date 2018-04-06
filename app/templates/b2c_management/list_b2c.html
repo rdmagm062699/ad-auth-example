@@ -13,84 +13,85 @@
       {% endfor %}
     {% endif %}
   {%- endmacro %}
+  <table class="table table-striped grid-table">
+    <thead class="grid-header">
+      <th>jobTitle</th>
+      <th>userIdentities</th>
+      <th>givenName</th>
+      <th>surname</th>
+      <th>displayName</th>
+      <th>userPrincipalName</th>
+      <th>signInNames</th>
+      <th>otherMails</th>
+      <th>mailNickname</th>
+      <th>franchises</th>
+      <th>companyName</th>
+      <th>department</th>
+      <th>streetAddress</th>
+      <th>city</th>
+      <th>state</th>
+      <th>country</th>
+      <th>postalCode</th>
+      <th>mobile</th>
+      <th>telephoneNumber</th>
+      <th>facsimileTelephoneNumber</th>
+      <th>employeeId</th>
+      <th>creationType</th>
+      <th>objectType</th>
+      <th>userType</th>
+      <th>showInAddressList</th>
+      <th>preferredLanguage</th>
+      <th>assignedLicenses</th>
+      <th>sipProxyAddress</th>
+      <th>proxyAddresses</th>
+      <th>assignedPlans</th>
+      <th>usageLocation</th>
+      <th>physicalDeliveryOfficeName</th>
+      <th>onPremisesDistinguishedName</th>
+      <th>onPremisesSecurityIdentifier</th>
+    </thead>
+    <tbody>
+      {% for person in list %}
+        <tr>
+          <td>{{ person['jobTitle'] }}</td>
+          <td>{{ display_list(person['userIdentities']) }}</td>
+          <td>{{ person['givenName'] }}</td>
+          <td>{{ person['surname'] }}</td>
+          <td>{{ person['displayName'] }}</td>
+          <td>{{ person['userPrincipalName'] }}</td>
+          <td>{{ display_list(person['signInNames']) }}</td>
+          <td>{{ display_list(person['otherMails']) }}</td>
+          <td>{{ person['mailNickname'] }}</td>
+          <td>{{ split_string(person, 'extension_e26ba073fd5142af9fa6455daecdcc9c_franchises', ',') }}</td>
+          <td>{{ person['companyName'] }}</td>
+          <td>{{ person['department'] }}</td>
+          <td>{{ person['streetAddress'] }}</td>
+          <td>{{ person['city'] }}</td>
+          <td>{{ person['state'] }}</td>
+          <td>{{ person['country'] }}</td>
+          <td>{{ person['postalCode'] }}</td>
+          <td>{{ person['mobile'] }}</td>
+          <td>{{ person['telephoneNumber'] }}</td>
+          <td>{{ person['facsimileTelephoneNumber'] }}</td>
+          <td>{{ person['employeeId'] }}</td>
+          <td>{{ person['creationType'] }}</td>
+          <td>{{ person['objectType'] }}</td>
+          <td>{{ person['userType'] }}</td>
+          <td>{{ person['showInAddressList'] }}</td>
+          <td>{{ person['preferredLanguage'] }}</td>
+          <td>{{ display_list(person['assignedLicenses']) }}</td>
+          <td>{{ person['sipProxyAddress'] }}</td>
+          <td>{{ display_list(person['proxyAddresses']) }}</td>
+          <td>{{ display_list(person['assignedPlans']) }}</td>
+          <td>{{ person['usageLocation'] }}</td>
+          <td>{{ person['physicalDeliveryOfficeName'] }}</td>
+          <td>{{ person['onPremisesDistinguishedName'] }}</td>
+          <td>{{ person['onPremisesSecurityIdentifier'] }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
   <div class='center-div'>
-    <table class="table table-striped grid-table">
-      <thead class="grid-header">
-        <th>jobTitle</th>
-        <th>userIdentities</th>
-        <th>givenName</th>
-        <th>surname</th>
-        <th>displayName</th>
-        <th>userPrincipalName</th>
-        <th>signInNames</th>
-        <th>otherMails</th>
-        <th>mailNickname</th>
-        <th>franchises</th>
-        <th>companyName</th>
-        <th>department</th>
-        <th>streetAddress</th>
-        <th>city</th>
-        <th>state</th>
-        <th>country</th>
-        <th>postalCode</th>
-        <th>mobile</th>
-        <th>telephoneNumber</th>
-        <th>facsimileTelephoneNumber</th>
-        <th>employeeId</th>
-        <th>creationType</th>
-        <th>objectType</th>
-        <th>userType</th>
-        <th>showInAddressList</th>
-        <th>preferredLanguage</th>
-        <th>assignedLicenses</th>
-        <th>sipProxyAddress</th>
-        <th>proxyAddresses</th>
-        <th>assignedPlans</th>
-        <th>usageLocation</th>
-        <th>physicalDeliveryOfficeName</th>
-        <th>onPremisesDistinguishedName</th>
-        <th>onPremisesSecurityIdentifier</th>
-      </thead>
-      <tbody>
-        {% for person in list %}
-          <tr>
-            <td>{{ person['jobTitle'] }}</td>
-            <td>{{ display_list(person['userIdentities']) }}</td>
-            <td>{{ person['givenName'] }}</td>
-            <td>{{ person['surname'] }}</td>
-            <td>{{ person['displayName'] }}</td>
-            <td>{{ person['userPrincipalName'] }}</td>
-            <td>{{ display_list(person['signInNames']) }}</td>
-            <td>{{ display_list(person['otherMails']) }}</td>
-            <td>{{ person['mailNickname'] }}</td>
-            <td>{{ split_string(person, 'extension_e26ba073fd5142af9fa6455daecdcc9c_franchises', ',') }}</td>
-            <td>{{ person['companyName'] }}</td>
-            <td>{{ person['department'] }}</td>
-            <td>{{ person['streetAddress'] }}</td>
-            <td>{{ person['city'] }}</td>
-            <td>{{ person['state'] }}</td>
-            <td>{{ person['country'] }}</td>
-            <td>{{ person['postalCode'] }}</td>
-            <td>{{ person['mobile'] }}</td>
-            <td>{{ person['telephoneNumber'] }}</td>
-            <td>{{ person['facsimileTelephoneNumber'] }}</td>
-            <td>{{ person['employeeId'] }}</td>
-            <td>{{ person['creationType'] }}</td>
-            <td>{{ person['objectType'] }}</td>
-            <td>{{ person['userType'] }}</td>
-            <td>{{ person['showInAddressList'] }}</td>
-            <td>{{ person['preferredLanguage'] }}</td>
-            <td>{{ display_list(person['assignedLicenses']) }}</td>
-            <td>{{ person['sipProxyAddress'] }}</td>
-            <td>{{ display_list(person['proxyAddresses']) }}</td>
-            <td>{{ display_list(person['assignedPlans']) }}</td>
-            <td>{{ person['usageLocation'] }}</td>
-            <td>{{ person['physicalDeliveryOfficeName'] }}</td>
-            <td>{{ person['onPremisesDistinguishedName'] }}</td>
-            <td>{{ person['onPremisesSecurityIdentifier'] }}</td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+    <a class='button' href='add_user'>Add CAREGiver</a>
   </div>
 {% endblock %}
