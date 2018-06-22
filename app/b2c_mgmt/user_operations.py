@@ -12,10 +12,11 @@ def b2c_user(email, config):
 
 def b2c_users(config, franchises):
     client = _client(config)
-    group_names = (franchises + ['CAREGiver'])
-    group_ids = _group_ids(config, client, group_names)
-    user_lists = [[_convert_user(user) for user in client.groups.get_group_members(group)] for group in group_ids]
-    return _unique_users(user_lists)
+    # group_names = (franchises + ['CAREGiver'])
+    # group_ids = _group_ids(config, client, group_names)
+    # user_lists = [[_convert_user(user) for user in client.groups.get_group_members(group)] for group in group_ids]
+    # return _unique_users(user_lists)
+    return [_convert_user(user) for user in client.users.list()]
 
 def _unique_users(list_of_user_lists):
     # This is absolutely convoluted.   We have to grab CAREGivers who are in Franchise 100 so it's an
